@@ -95,7 +95,7 @@
 	    <repository>
 	      <id>github</id>
 	      <name></name>
-	      <url>https://maven.pkg.github.com/xashy-devops/xashy-webapp</url>
+	      <url>https://maven.pkg.github.com/xashy-devops/elasticbeanstalkwebapp</url>
 	    </repository>
 	    
 	    

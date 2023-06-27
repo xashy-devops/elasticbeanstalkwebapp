@@ -1,0 +1,29 @@
+name: Deploy to elstic beanstalk
+on: 
+    push:
+      branches:
+        main
+    workflow_dispatch:
+jobs: 
+    buildanddeploytoelb:
+        runs-on: ubuntu-latest
+        permissions: 
+            contents: read
+            packages: write 
+        steps:
+            - name: checkout code from repo 
+              uses: actions/checkout@v3    
+            - name: setup the java and maven environment
+              uses: actions/setup-java@v3
+              with: 
+                distribution: 'adopt'
+                java-version:  '11'
+            - name: build artifact with maven
+              run: mvn package
+            - name: perform code analysis with sonarqube 
+              run: mvn sonar:sonar -Dsonar.projectKey=xashywebapp -Dsonar.host.url=${{secrets.SONAR_HOST_URL}} -Dsonar.login=${{secrets.SONAR_LOGIN_TOKEN}}
+            - name: publish to github packages 
+              run: mvn --batch-mode deploy 
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        

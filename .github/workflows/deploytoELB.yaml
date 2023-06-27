@@ -41,12 +41,10 @@ jobs:
                 --application-name xashy-webapp \
                 --source-bundle S3Bucket="webappbucketmvn",S3Key="xashy-webapp.war" \
                 --version-label "ver-${{ github.sha }}" \
-                --description "commit-sha-${{ github.sha }}"
-
-                ###added update the elb env
+                --description "commit-sha-${{ github.sha }}
                
             - name: update the environment with the app version.
-              run:  aws elasticbeanstalk update-environment --environment-name aws elasticbeanstalk update-environment --environment-name xashy-webapp-dev --version-label "ver-${{ github.sha }}" --version-label "ver-${{ github.sha }}" 
+              run:  aws elasticbeanstalk update-environment --environment-name xashy-webapp-dev --version-label "ver-${{ github.sha }}" --version-label "ver-${{ github.sha }}" 
 
 
 

@@ -34,7 +34,7 @@ jobs:
                 aws-region: ${{secrets.AWS_REGION}}
             - name: deploy to s3 
               run: aws s3 cp target/*war s3://webappbucketmvn
-### Create an ap[plication version for elb
+### Create an ap[plication version for elb. make sure you have everything
             - name: create an elb app version for the artifact 
               run: |
               aws elasticbeanstalk create-application-version \

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>LandmarkTechnologies- Home Page</title>
+<title>XashyTech- Home Page</title>
 <link href="images/xashyinclogo.png" rel="icon">
 </head>
 </head>

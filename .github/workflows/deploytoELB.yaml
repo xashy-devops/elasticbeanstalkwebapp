@@ -21,12 +21,12 @@ jobs:
                 fetch-depth: 0
             - name: build artifact with maven
               run: mvn package
-            - name: Build and analyze
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-                SONAR_TOKEN: ${{ secrets.SONAR_LOGIN_TOKEN }}
-                SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-              run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar 
+            # - name: Build and analyze
+            #   env:
+            #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+            #     SONAR_TOKEN: ${{ secrets.SONAR_LOGIN_TOKEN }}
+            #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+            #   run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar 
             # - name: SonarQube Scan
             #   uses: sonarsource/sonarqube-scan-action@master
             #   env:
@@ -39,8 +39,8 @@ jobs:
             #       sonar.projectKey=xashywebapp
 
                 
-            # - name: perform code analysis with sonarqube 
-            #   run: mvn sonar:sonar -Dsonar.projectKey=xashywebapp -Dsonar.host.url=${{secrets.SONAR_HOST_URL}} -Dsonar.token=${{secrets.SONAR_LOGIN_TOKEN}}
+            - name: perform code analysis with sonarqube 
+              run: mvn sonar:sonar -Dsonar.projectKey=xashywebapp -Dsonar.host.url=${{secrets.SONAR_HOST_URL}} -Dsonar.token=${{secrets.SONAR_LOGIN_TOKEN}}
 #             - name: publish to github packages 
 #               run: mvn --batch-mode deploy 
 #               env:

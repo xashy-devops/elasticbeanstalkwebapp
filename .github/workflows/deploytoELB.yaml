@@ -28,7 +28,7 @@ jobs:
                 SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
                 SONAR_PROJECT_NAME: xashywebapp
               with:
-                projectBaseDir: ./path/to/project
+                projectBaseDir: ${{ github.workspace }}
                 properties: |
                   sonar.projectKey=xashywebapp
 

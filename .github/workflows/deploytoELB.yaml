@@ -21,20 +21,20 @@ jobs:
                 fetch-depth: 0
             - name: build artifact with maven
               run: mvn package
-            - name: SonarQube Scan
-              uses: sonarsource/sonarqube-scan-action@master
-              env:
-                SONAR_TOKEN: ${{ secrets.SONAR_LOGIN_TOKEN }}
-                SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-                SONAR_PROJECT_NAME: xashywebapp
-              with:
-                projectBaseDir: ${{ github.workspace }}
-                properties: |
-                  sonar.projectKey=xashywebapp
+            # - name: SonarQube Scan
+            #   uses: sonarsource/sonarqube-scan-action@master
+            #   env:
+            #     SONAR_TOKEN: ${{ secrets.SONAR_LOGIN_TOKEN }}
+            #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+            #     SONAR_PROJECT_NAME: xashywebapp
+            #   with:
+            #     projectBaseDir: ${{ github.workspace }}
+            #     properties: |
+            #       sonar.projectKey=xashywebapp
 
                 
 #             - name: perform code analysis with sonarqube 
-#               run: mvn sonar:sonar -Dsonar.projectKey=xashywebapp -Dsonar.host.url=${{secrets.SONAR_HOST_URL}} -Dsonar.login=${{secrets.SONAR_LOGIN_TOKEN}}
+#               run: mvn sonar:sonar -Dsonar.projectKey=xashywebapp -Dsonar.host.url=${{secrets.SONAR_HOST_URL}} -Dsonar.token=${{secrets.SONAR_LOGIN_TOKEN}}
 #             - name: publish to github packages 
 #               run: mvn --batch-mode deploy 
 #               env:

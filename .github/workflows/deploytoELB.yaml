@@ -27,6 +27,10 @@ jobs:
                 SONAR_TOKEN: ${{ secrets.SONAR_LOGIN_TOKEN }}
                 SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
                 SONAR_PROJECT_NAME: xashywebapp
+              with:
+                projectBaseDir: ./path/to/project
+                properties: |
+                sonar.projectKey=xashywebapp
 
                 
 #             - name: perform code analysis with sonarqube 

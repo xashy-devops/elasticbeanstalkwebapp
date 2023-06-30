@@ -30,7 +30,7 @@ jobs:
               with:
                 projectBaseDir: ./path/to/project
                 properties: |
-                sonar.projectKey=xashywebapp
+                  sonar.projectKey=xashywebapp
 
                 
 #             - name: perform code analysis with sonarqube 

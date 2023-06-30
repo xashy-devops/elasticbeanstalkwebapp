@@ -33,8 +33,8 @@ jobs:
             #       sonar.projectKey=xashywebapp
 
                 
-#             - name: perform code analysis with sonarqube 
-#               run: mvn sonar:sonar -Dsonar.projectKey=xashywebapp -Dsonar.host.url=${{secrets.SONAR_HOST_URL}} -Dsonar.token=${{secrets.SONAR_LOGIN_TOKEN}}
+            - name: perform code analysis with sonarqube 
+              run: mvn sonar:sonar -Dsonar.projectKey=xashywebapp -Dsonar.host.url=${{secrets.SONAR_HOST_URL}} -Dsonar.token=${{secrets.SONAR_LOGIN_TOKEN}}
 #             - name: publish to github packages 
 #               run: mvn --batch-mode deploy 
 #               env:

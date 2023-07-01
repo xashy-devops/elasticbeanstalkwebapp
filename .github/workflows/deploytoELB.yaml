@@ -43,9 +43,9 @@ jobs:
                   REGISTRY: ${{ steps.login-ecr.outputs.registry }}
                   REPOSITORY: 408567971819.dkr.ecr.us-east-2.amazonaws.com
                   IMAGE_TAG: ${{ github.sha }}
-                run: |
-                  docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
-                  docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+              run: |
+                docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+                docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
 
 

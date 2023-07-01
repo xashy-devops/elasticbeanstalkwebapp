@@ -2,7 +2,7 @@ name: Deploy to elstic beanstalk
 on: 
     push:
       branches:
-        main
+        testdockerdeploy
     workflow_dispatch:
 jobs: 
     buildanddeploytoelb:
@@ -21,31 +21,31 @@ jobs:
             - name: build artifact with maven
               run: mvn package
             - name: perform code analysis with sonarqube 
-              run: mvn sonar:sonar -Dsonar.projectKey=xashywebapp -Dsonar.host.url=${{secrets.SONAR_HOST_URL}} -Dsonar.login=${{secrets.SONAR_LOGIN_TOKEN}}
+              run: mvn sonar:sonar -Dsonar.projectKey=java-webapp -Dsonar.host.url=${{secrets.SONAR_HOST_URL}} -Dsonar.token=${{secrets.SONAR_LOGIN_TOKEN}}
             - name: publish to github packages 
               run: mvn --batch-mode deploy 
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         
             - name: authenticate to aws account 
               uses: aws-actions/configure-aws-credentials@v1
               with:
                 aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
                 aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-                aws-region: ${{secrets.AWS_REGION}}
-            - name: deploy to s3 
-              run: aws s3 cp target/*war s3://webappbucketmvn
-### Create an ap[plication version for elb. make sure you have everything
-            - name: create an elb app version for the artifact 
-              run: |
-                aws elasticbeanstalk create-application-version \
-                --application-name xashy-webapp \
-                --source-bundle S3Bucket="webappbucketmvn",S3Key="xashy-webapp.war" \
-                --version-label "ver-${{ github.sha }}" \
-                --description "commit-sha-${{ github.sha }}"
-               
-            - name: update the environment with the app version.
-              run:  aws elasticbeanstalk update-environment --environment-name xashy-webapp-dev --version-label "ver-${{ github.sha }}" --version-label "ver-${{ github.sha }}" 
-
+                aws-region: ${{secrets.AWS_REGION}
+            
+            - name: Login to Amazon ECR
+              id: login-ecr
+              uses: aws-actions/amazon-ecr-login@v1
+        
+            - name: Build, tag, and push docker image to Amazon ECR
+              env:
+                  REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+                  REPOSITORY: 408567971819.dkr.ecr.us-east-2.amazonaws.com
+                  IMAGE_TAG: ${{ github.sha }}
+                run: |
+                  docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+                  docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
 
 

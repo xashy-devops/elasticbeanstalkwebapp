@@ -41,7 +41,7 @@ jobs:
             - name: Build, tag, and push docker image to Amazon ECR
               env:
                   REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-                  REPOSITORY: public.ecr.aws/c3e8i3g1/xashywebapp
+                  REPOSITORY: xashy-webapp
                   IMAGE_TAG: ${{ github.sha }}
               run: |
                 docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .

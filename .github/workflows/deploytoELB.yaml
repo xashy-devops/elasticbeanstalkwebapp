@@ -20,8 +20,8 @@ jobs:
                 java-version:  '11'
             - name: build artifact with maven
               run: mvn package
-            - name: perform code analysis with sonarqube 
-              run: mvn sonar:sonar -Dsonar.projectKey=java-webapp -Dsonar.host.url=${{secrets.SONAR_HOST_URL}} -Dsonar.token=${{secrets.SONAR_LOGIN_TOKEN}}
+#             - name: perform code analysis with sonarqube 
+#               run: mvn sonar:sonar -Dsonar.projectKey=java-webapp -Dsonar.host.url=${{secrets.SONAR_HOST_URL}} -Dsonar.token=${{secrets.SONAR_LOGIN_TOKEN}}
             - name: publish to github packages 
               run: mvn --batch-mode deploy 
               env:
@@ -41,7 +41,7 @@ jobs:
             - name: Build, tag, and push docker image to Amazon ECR
               env:
                   REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-                  REPOSITORY: 408567971819.dkr.ecr.us-east-2.amazonaws.com/xashy-webapp
+                  REPOSITORY: public.ecr.aws/c3e8i3g1/xashywebapp
                   IMAGE_TAG: ${{ github.sha }}
               run: |
                 docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
